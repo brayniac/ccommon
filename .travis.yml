@@ -1,4 +1,4 @@
-sudo: false
+sudo: required
 language: c
 dist: xenial
 
@@ -26,6 +26,42 @@ matrix:
           packages:
             - libsubunit-dev
 
+    - name: "gcc-6 on Linux"
+      script:
+        - sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
+        - sudo apt-get update -y
+        - sudo apt-get install gcc-6 g++-6 -y
+        - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-6 60 --slave /usr/bin/g++ g++ /usr/bin/g++-6
+        - sudo update-alternatives --config gcc
+        - ./ci/run.sh
+
+    - name: "gcc-7 on Linux"
+      script:
+        - sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
+        - sudo apt-get update -y
+        - sudo apt-get install gcc-7 g++-7 -y
+        - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-7 60 --slave /usr/bin/g++ g++ /usr/bin/g++-7
+        - sudo update-alternatives --config gcc
+        - ./ci/run.sh
+
+    - name: "gcc-8 on Linux"
+      script:
+        - sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
+        - sudo apt-get update -y
+        - sudo apt-get install gcc-8 g++-8 -y
+        - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 60 --slave /usr/bin/g++ g++ /usr/bin/g++-8
+        - sudo update-alternatives --config gcc
+        - ./ci/run.sh
+
+    - name: "gcc-9 on Linux"
+      script:
+        - sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
+        - sudo apt-get update -y
+        - sudo apt-get install gcc-9 g++-9 -y
+        - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-9 60 --slave /usr/bin/g++ g++ /usr/bin/g++-9
+        - sudo update-alternatives --config gcc
+        - ./ci/run.sh
+
     - name: "gcc-5 on Linux, Rust enabled"
       compiler: gcc
       env:
@@ -35,6 +71,46 @@ matrix:
           <<: *apt
           packages:
             - libsubunit-dev
+
+    - name: "gcc-6 on Linux, Rust enabled"
+      env: RUST_ENABLED=1
+      script:
+        - sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
+        - sudo apt-get update -y
+        - sudo apt-get install gcc-6 g++-6 -y
+        - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-6 60 --slave /usr/bin/g++ g++ /usr/bin/g++-6
+        - sudo update-alternatives --config gcc
+        - ./ci/run.sh
+
+    - name: "gcc-7 on Linux, Rust enabled"
+      env: RUST_ENABLED=1
+      script:
+        - sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
+        - sudo apt-get update -y
+        - sudo apt-get install gcc-7 g++-7 -y
+        - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-7 60 --slave /usr/bin/g++ g++ /usr/bin/g++-7
+        - sudo update-alternatives --config gcc
+        - ./ci/run.sh
+
+    - name: "gcc-8 on Linux, Rust enabled"
+      env: RUST_ENABLED=1
+      script:
+        - sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
+        - sudo apt-get update -y
+        - sudo apt-get install gcc-8 g++-8 -y
+        - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 60 --slave /usr/bin/g++ g++ /usr/bin/g++-8
+        - sudo update-alternatives --config gcc
+        - ./ci/run.sh
+
+    - name: "gcc-9 on Linux, Rust enabled"
+      env: RUST_ENABLED=1
+      script:
+        - sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
+        - sudo apt-get update -y
+        - sudo apt-get install gcc-9 g++-9 -y
+        - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-9 60 --slave /usr/bin/g++ g++ /usr/bin/g++-9
+        - sudo update-alternatives --config gcc
+        - ./ci/run.sh
 
     - os: osx
       osx_image: xcode10.1
